@@ -26,5 +26,5 @@ body {
 }
 
 .input {
-  @apply border rounded-md border-gray-300 w-[250px] outline-none [&:focus]:border-primary [&:focus]:border-2 transition
+  @apply border rounded-md border-gray-300 w-full outline-none [&:focus]:border-primary [&:focus]:border-2 transition
 }
