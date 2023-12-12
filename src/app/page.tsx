@@ -4,10 +4,11 @@ import { InvestmentInput } from "@/components/investment";
 import { ROWS } from "@/utils/constants";
 import useHome from "./home.hook";
 import Button from "@/components/common/Button";
+import { getRequiredChange } from "@/utils/format";
 
 export default function Home() {
   const {
-    models: { investments, total, autoTotal, calculatedInvestments },
+    models: { investments, total, autoTotal },
     operations: { onInvestmentValueChange, onCalculate },
   } = useHome();
 
@@ -51,7 +52,6 @@ export default function Home() {
           <div className="w-full flex flex-col h-full justify-around">
             {ROWS.map((row, index) => {
               const value = investments[row.key];
-              const calculated = calculatedInvestments[row.key];
 
               return (
                 <div key={index} className="flex w-full justify-around">
@@ -63,12 +63,10 @@ export default function Home() {
                     onChange={onInvestmentValueChange}
                   />
                   <p className="w-full text-center font-bold text-lg text-gray-700">
-                    {/* {getRequiredChange({ total, price: +value.price, has: +value.has, targetRatio: row.growth! })} */}
-                    {calculated.growth || "-"}
+                    {getRequiredChange({ total, price: +value.price, has: +value.has, targetRatio: row.growth! })}
                   </p>
                   <p className="w-full text-center font-bold text-lg text-gray-700">
-                    {/* {getRequiredChange({ total, price: +value.price, has: +value.has, targetRatio: row.safe! })} */}
-                    {calculated.safe || "-"}
+                    {getRequiredChange({ total, price: +value.price, has: +value.has, targetRatio: row.safe! })}
                   </p>
                 </div>
               );

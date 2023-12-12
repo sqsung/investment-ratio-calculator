@@ -5,7 +5,7 @@ import { useState } from "react";
 
 export default function useHome() {
   const [total, setTotal] = useState(0);
-  const [isApplied, setIsApplied] = useState(false);
+  // const [isApplied, setIsApplied] = useState(false);
 
   const [investments, setInvestments] = useState<Investments>({
     us: { has: 0, price: 0 },
@@ -20,18 +20,18 @@ export default function useHome() {
     deposit: { has: 1, price: 0 },
   });
 
-  const [calculatedInvestments, setCalculatedInvestments] = useState<CalculatedInvestments>({
-    us: { growth: 0, safe: 0 },
-    kr: { growth: 0, safe: 0 },
-    cn: { growth: 0, safe: 0 },
-    in: { growth: 0, safe: 0 },
-    gold: { growth: 0, safe: 0 },
-    usBond30: { growth: 0, safe: 0 },
-    usBond10: { growth: 0, safe: 0 },
-    krBond: { growth: 0, safe: 0 },
-    liquid: { growth: 0, safe: 0 },
-    deposit: { growth: 1, safe: 1 },
-  });
+  // const [calculatedInvestments, setCalculatedInvestments] = useState<CalculatedInvestments>({
+  //   us: { growth: 0, safe: 0 },
+  //   kr: { growth: 0, safe: 0 },
+  //   cn: { growth: 0, safe: 0 },
+  //   in: { growth: 0, safe: 0 },
+  //   gold: { growth: 0, safe: 0 },
+  //   usBond30: { growth: 0, safe: 0 },
+  //   usBond10: { growth: 0, safe: 0 },
+  //   krBond: { growth: 0, safe: 0 },
+  //   liquid: { growth: 0, safe: 0 },
+  //   deposit: { growth: 1, safe: 1 },
+  // });
 
   const onInvestmentValueChange = (event: React.ChangeEvent, key: keyof Investments, type: InvestmentValueType) => {
     const input = event.target as HTMLInputElement;
@@ -42,40 +42,40 @@ export default function useHome() {
     const overallAsset: number = Object.values(investments).reduce((acc, cur) => acc + cur.has * cur.price, 0);
 
     setTotal(overallAsset);
-    setIsApplied(false);
+    // setIsApplied(false);
 
-    setCalculatedInvestments(() => {
-      const newState: CalculatedInvestments = {
-        us: { growth: 0, safe: 0 },
-        kr: { growth: 0, safe: 0 },
-        cn: { growth: 0, safe: 0 },
-        in: { growth: 0, safe: 0 },
-        gold: { growth: 0, safe: 0 },
-        usBond30: { growth: 0, safe: 0 },
-        usBond10: { growth: 0, safe: 0 },
-        krBond: { growth: 0, safe: 0 },
-        liquid: { growth: 0, safe: 0 },
-        deposit: { growth: 1, safe: 1 },
-      };
+    // setCalculatedInvestments(() => {
+    //   const newState: CalculatedInvestments = {
+    //     us: { growth: 0, safe: 0 },
+    //     kr: { growth: 0, safe: 0 },
+    //     cn: { growth: 0, safe: 0 },
+    //     in: { growth: 0, safe: 0 },
+    //     gold: { growth: 0, safe: 0 },
+    //     usBond30: { growth: 0, safe: 0 },
+    //     usBond10: { growth: 0, safe: 0 },
+    //     krBond: { growth: 0, safe: 0 },
+    //     liquid: { growth: 0, safe: 0 },
+    //     deposit: { growth: 1, safe: 1 },
+    //   };
 
-      ROWS.forEach(row => {
-        const key = row.key;
-        const common = { total, price: +investments[key].price, has: +investments[key].has };
+    //   ROWS.forEach(row => {
+    //     const key = row.key;
+    //     const common = { total, price: +investments[key].price, has: +investments[key].has };
 
-        newState[key] = {
-          growth: getRequiredChange({
-            ...common,
-            targetRatio: row.growth,
-          }),
-          safe: getRequiredChange({
-            ...common,
-            targetRatio: row.safe,
-          }),
-        };
-      });
+    //     newState[key] = {
+    //       growth: getRequiredChange({
+    //         ...common,
+    //         targetRatio: row.growth,
+    //       }),
+    //       safe: getRequiredChange({
+    //         ...common,
+    //         targetRatio: row.safe,
+    //       }),
+    //     };
+    //   });
 
-      return newState;
-    });
+    //   return newState;
+    // });
   };
 
   // const onApply = (type: "safe" | "growth") => {
@@ -109,7 +109,7 @@ export default function useHome() {
   const autoTotal: number = Object.values(investments).reduce((acc, cur) => acc + cur.has * cur.price, 0);
 
   return {
-    models: { investments, total, autoTotal, isApplied, calculatedInvestments },
+    models: { investments, total, autoTotal },
     operations: { onInvestmentValueChange, onCalculate },
   };
 }
