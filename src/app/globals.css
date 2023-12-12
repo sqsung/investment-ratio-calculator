@@ -1,18 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import 'bootstrap-icons/font/bootstrap-icons.css';
 
 :root {
-  background-color: white;
+  background-color: "#f5ece5"
 }
-
-/* @media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
-} */
 
 body {
   color: rgb(var(--foreground-rgb));
@@ -26,5 +19,5 @@ body {
 }
 
 .input {
-  @apply border rounded-md border-gray-300 w-full outline-none [&:focus]:border-primary [&:focus]:border-2 transition
+  @apply border rounded-md border-gray-300 w-[90%] h-full outline-none [&:focus]:border-secondary [&:focus]:border-2 transition text-end bg-white [&:disabled]:bg-gray-100
 }
