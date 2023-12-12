@@ -26,20 +26,8 @@ export default function Home() {
             <p className="w-full h-full flex justify-center items-center">현재 가격</p>
             <p className="w-full h-full flex justify-center items-center">보유 개수</p>
             <p className="w-full h-full flex justify-center items-center">현재 비율</p>
-            <p className="w-full h-full flex gap-3 justify-center items-center">
-              성장형
-              <span>
-                (<span>4.2</span>
-                <i className="bi bi-caret-up-fill text-red-400" />)
-              </span>
-            </p>
-            <p className="w-full h-full flex gap-3 justify-center items-center">
-              안정형
-              <span>
-                (<span>2.4</span>
-                <i className="bi bi-caret-down-fill text-blue-400" />)
-              </span>
-            </p>
+            <p className="w-full h-full flex gap-3 justify-center items-center">성장형</p>
+            <p className="w-full h-full flex gap-3 justify-center items-center">안정형</p>
           </div>
         </div>
         <div className="h-full flex">
@@ -78,9 +66,9 @@ export default function Home() {
           <p className="w-full h-full flex justify-center items-center text-secondary font-bold">
             {autoTotal.toLocaleString() || 0}원
           </p>
-          <p className="w-full h-full flex justify-center items-center">-</p>
-          <p className="w-full h-full flex justify-center items-center">-</p>
-          <p className="w-full h-full flex justify-center items-center">-</p>
+          <p className="w-full h-full flex justify-center items-center"></p>
+          <p className="w-full h-full flex justify-center items-center"></p>
+          <p className="w-full h-full flex justify-center items-center"></p>
         </div>
       </div>
     </div>

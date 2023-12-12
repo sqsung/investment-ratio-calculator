@@ -14,7 +14,5 @@ export function getRequiredChange({
   price: number;
   targetRatio: number;
 }) {
-  // const;
-
   return total && price ? `${Math.round((total * targetRatio) / price)}` : "-";
 }
