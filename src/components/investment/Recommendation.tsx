@@ -22,7 +22,7 @@ export default function Recommendation({ total, targetRatio, price, has, isDepos
         {(targetRatio * 100).toFixed(0) + "%"}
       </p>
       <div className="w-full">
-        <p className="text-center font-bold text-2xl text-gray-700">{!change ? "" : `${change.targetQuantity}`}</p>
+        <p className="text-center font-bold text-2xl text-gray-700">{!change ? "-" : `${change.targetQuantity}`}</p>
         <p className="text-center text-base text-gray-700">
           {!change || isDeposit ? (
             ""
