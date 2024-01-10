@@ -1,10 +1,9 @@
 "use client";
 
-import { InvestmentInput } from "@/components/investment";
-import { ROWS } from "@/utils/constants";
 import useHome from "./home.hook";
-import { getRequiredChange } from "@/utils/format";
-import { TableHeader, Button, SideLabels } from "@/components/common";
+import { ROWS } from "@/utils/constants";
+import { InvestmentInput, Recommendation } from "@/components/investment";
+import { TableHeader, Button, SideLabels, Total } from "@/components/common";
 
 export default function Home() {
   const {
@@ -25,18 +24,6 @@ export default function Home() {
           <div className="w-full flex flex-col h-full justify-around">
             {ROWS.map((row, index) => {
               const value = investments[row.key];
-              const growthChange = getRequiredChange({
-                total,
-                price: +value.price,
-                has: +value.has,
-                targetRatio: row.growth!,
-              });
-              const safeChange = getRequiredChange({
-                total,
-                price: +value.price,
-                has: +value.has,
-                targetRatio: row.safe!,
-              });
 
               return (
                 <div key={index} className="flex w-full justify-around">
@@ -47,55 +34,26 @@ export default function Home() {
                     value={value}
                     onChange={onInvestmentValueChange}
                   />
-                  <div className="flex w-full">
-                    <p className="flex justify-center w-full italic text-gray-500 font-light text-2xl">
-                      {(row.growth * 100).toFixed(0) + "%"}
-                    </p>
-                    <div className="w-full">
-                      <p className="text-center font-bold text-2xl text-gray-700">
-                        {!growthChange ? "" : `${growthChange.targetQuantity}`}
-                      </p>
-                      <p className="text-center text-base text-gray-700">
-                        {!growthChange || row.mainLabel === "예수금" ? (
-                          ""
-                        ) : (
-                          <span className={`font-bold ${growthChange.needsMore ? "text-blue-500" : "text-red-500"}`}>
-                            {growthChange.changeQuantity}
-                          </span>
-                        )}
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex w-full">
-                    <p className="flex justify-center w-full italic text-gray-500 font-light text-2xl">
-                      {(row.safe * 100).toFixed(0) + "%"}
-                    </p>
-                    <div className="w-full">
-                      <p className="text-center font-bold text-2xl text-gray-700">
-                        {!safeChange ? "-" : `${safeChange.targetQuantity}`}
-                      </p>
-                      <p className="text-center text-base text-gray-700">
-                        {!safeChange || row.mainLabel === "예수금" ? (
-                          ""
-                        ) : (
-                          <span className={`font-bold ${safeChange.needsMore ? "text-blue-500" : "text-red-500"}`}>
-                            {safeChange.changeQuantity}
-                          </span>
-                        )}
-                      </p>
-                    </div>
-                  </div>
+                  <Recommendation
+                    targetRatio={row.growth}
+                    total={total}
+                    price={+value.price}
+                    has={+value.has}
+                    isDeposit={!!(row.mainLabel === "예수금")}
+                  />
+                  <Recommendation
+                    targetRatio={row.safe}
+                    total={total}
+                    price={+value.price}
+                    has={+value.has}
+                    isDeposit={!!(row.mainLabel === "예수금")}
+                  />
                 </div>
               );
             })}
           </div>
         </div>
-        <div className="bg-gray-50 pl-[80px] h-[40px] border-t border-gray-300 grid grid-cols-[2fr,1fr,1fr,1fr,1fr] text font-bold text-gray-500">
-          <p className="w-full h-full flex justify-center items-center">합계</p>
-          <p className="w-full h-full flex justify-center items-center text-secondary font-bold">
-            {autoTotal.toLocaleString() || 0}원
-          </p>
-        </div>
+        <Total autoTotal={autoTotal} />
       </div>
     </div>
   );

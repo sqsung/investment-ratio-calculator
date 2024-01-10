@@ -3,3 +3,4 @@ export { default as PageWrapper } from "./PageWrapper";
 export { default as TableHeader } from "./TableHeader";
 export { default as Button } from "./Button";
 export { default as SideLabels } from "./SideLabels";
+export { default as Total } from "./Total";
