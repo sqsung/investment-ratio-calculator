@@ -19,7 +19,7 @@ export default function Recommendation({ total, targetRatio, price, has, isDepos
   return (
     <div className="flex w-full">
       <p className="flex justify-center w-full italic text-gray-500 font-light text-2xl">
-        {(targetRatio * 100).toFixed(0) + "%"}
+        {(targetRatio * 100).toFixed(1) + "%"}
       </p>
       <div className="w-full">
         <p className="text-center font-bold text-2xl text-gray-700">{!change ? "-" : `${change.targetQuantity}`}</p>
