@@ -16,7 +16,7 @@ export default function InvestmentInput({ row, value, total, onChange, autoTotal
     <>
       <div className="w-full flex flex-col items-center gap-1 h-[40px] justify-center">
         <p className="font-bold">{row.mainLabel}</p>
-        <p className="text-xs">{row.subLabel}</p>
+        <p className="text-sm text-gray-600">{row.subLabel}</p>
       </div>
       <div className="w-full h-full flex justify-center">
         <input
@@ -38,7 +38,7 @@ export default function InvestmentInput({ row, value, total, onChange, autoTotal
         />
       </div>
       <p
-        className={`w-full text-center font-bold text-base text-gray-700 ${
+        className={`w-full text-center font-bold text-2xl text-gray-700 ${
           isNaN(ratio) || ratio <= 30 ? "text-blue-500" : ratio <= 70 ? "text-orange-500" : "text-red-400"
         }`}
       >

@@ -3,8 +3,8 @@
 import { InvestmentInput } from "@/components/investment";
 import { ROWS } from "@/utils/constants";
 import useHome from "./home.hook";
-import Button from "@/components/common/Button";
 import { getRequiredChange } from "@/utils/format";
+import { TableHeader, Button, SideLabels } from "@/components/common";
 
 export default function Home() {
   const {
@@ -19,27 +19,24 @@ export default function Home() {
         <Button text="계산하기" onClick={onCalculate} />
       </div>
       <div className="h-full flex flex-col rounded-md border border-primary overflow-hidden">
-        <div className="flex h-[50px] w-full bg-primary text-gray-100 font-bold">
-          <p className="w-[80px] h-full flex justify-center items-center">구분</p>
-          <div className="flex w-full justify-between">
-            <p className="w-full h-full flex justify-center items-center">자산군</p>
-            <p className="w-full h-full flex justify-center items-center">현재 가격</p>
-            <p className="w-full h-full flex justify-center items-center">보유 개수</p>
-            <p className="w-full h-full flex justify-center items-center">현재 비율</p>
-            <p className="w-full h-full flex gap-3 justify-center items-center">성장형</p>
-            <p className="w-full h-full flex gap-3 justify-center items-center">안정형</p>
-          </div>
-        </div>
+        <TableHeader />
         <div className="h-full flex">
-          <div className="grid grid-rows-[4fr,1fr,3fr,2fr] w-[80px] h-full text-sm text-gray-500 font-bold">
-            <p className="h-full flex justify-center items-center border-r border-b border-gray-300">주식</p>
-            <p className="h-full flex justify-center items-center border-r border-b border-gray-300">대체투자</p>
-            <p className="h-full flex justify-center items-center border-r border-b border-gray-300">국채</p>
-            <p className="h-full flex justify-center items-center border-r border-gray-300">현금성자산</p>
-          </div>
+          <SideLabels />
           <div className="w-full flex flex-col h-full justify-around">
             {ROWS.map((row, index) => {
               const value = investments[row.key];
+              const growthChange = getRequiredChange({
+                total,
+                price: +value.price,
+                has: +value.has,
+                targetRatio: row.growth!,
+              });
+              const safeChange = getRequiredChange({
+                total,
+                price: +value.price,
+                has: +value.has,
+                targetRatio: row.safe!,
+              });
 
               return (
                 <div key={index} className="flex w-full justify-around">
@@ -50,12 +47,44 @@ export default function Home() {
                     value={value}
                     onChange={onInvestmentValueChange}
                   />
-                  <p className="w-full text-center font-bold text-lg text-gray-700">
-                    {getRequiredChange({ total, price: +value.price, has: +value.has, targetRatio: row.growth! })}
-                  </p>
-                  <p className="w-full text-center font-bold text-lg text-gray-700">
-                    {getRequiredChange({ total, price: +value.price, has: +value.has, targetRatio: row.safe! })}
-                  </p>
+                  <div className="flex w-full">
+                    <p className="flex justify-center w-full italic text-gray-500 font-light text-2xl">
+                      {(row.growth * 100).toFixed(0) + "%"}
+                    </p>
+                    <div className="w-full">
+                      <p className="text-center font-bold text-2xl text-gray-700">
+                        {!growthChange ? "" : `${growthChange.targetQuantity}`}
+                      </p>
+                      <p className="text-center text-base text-gray-700">
+                        {!growthChange ? (
+                          "-"
+                        ) : (
+                          <span className={`font-bold ${growthChange.needsMore ? "text-blue-500" : "text-red-500"}`}>
+                            {growthChange.changeQuantity}
+                          </span>
+                        )}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex w-full">
+                    <p className="flex justify-center w-full italic text-gray-500 font-light text-2xl">
+                      {(row.safe * 100).toFixed(0) + "%"}
+                    </p>
+                    <div className="w-full">
+                      <p className="text-center font-bold text-2xl text-gray-700">
+                        {!safeChange ? "-" : `${safeChange.targetQuantity}`}
+                      </p>
+                      <p className="text-center text-base text-gray-700">
+                        {!safeChange ? (
+                          "-"
+                        ) : (
+                          <span className={`font-bold ${safeChange.needsMore ? "text-blue-500" : "text-red-500"}`}>
+                            {safeChange.changeQuantity}
+                          </span>
+                        )}
+                      </p>
+                    </div>
+                  </div>
                 </div>
               );
             })}
@@ -66,9 +95,6 @@ export default function Home() {
           <p className="w-full h-full flex justify-center items-center text-secondary font-bold">
             {autoTotal.toLocaleString() || 0}원
           </p>
-          <p className="w-full h-full flex justify-center items-center"></p>
-          <p className="w-full h-full flex justify-center items-center"></p>
-          <p className="w-full h-full flex justify-center items-center"></p>
         </div>
       </div>
     </div>

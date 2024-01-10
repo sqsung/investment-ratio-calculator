@@ -14,5 +14,14 @@ export function getRequiredChange({
   price: number;
   targetRatio: number;
 }) {
-  return total && price ? `${Math.round((total * targetRatio) / price)}` : "-";
+  if (!total || !price) return null;
+
+  const targetQuantity = Math.round((total * targetRatio) / price);
+  const changeQuantity = targetQuantity - has;
+
+  return {
+    targetQuantity: targetQuantity.toLocaleString(),
+    changeQuantity: `${changeQuantity > 0 ? "+" : ""}${changeQuantity.toLocaleString()}`,
+    needsMore: !!(changeQuantity > 0),
+  };
 }

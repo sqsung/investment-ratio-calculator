@@ -13,3 +13,7 @@ export const ROWS: Array<Row> = [
   { mainLabel: "현금성자산", subLabel: "(TIGER CD금리투자KIS(합성))", key: "liquid", growth: 0.05, safe: 0.4 },
   { mainLabel: "예수금", subLabel: "* 금액만 입력", key: "deposit", growth: 0, safe: 0 },
 ];
+
+export const TABLE_HEADERS = ["자산군", "현재 가격", "보유 개수", "현재 비율", "성장형", "안전형"];
+
+export const SIDE_LABELS = ["주식", "대체투자", "국채", "현금성자산"];
