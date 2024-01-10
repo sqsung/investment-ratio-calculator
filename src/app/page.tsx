@@ -56,8 +56,8 @@ export default function Home() {
                         {!growthChange ? "" : `${growthChange.targetQuantity}`}
                       </p>
                       <p className="text-center text-base text-gray-700">
-                        {!growthChange ? (
-                          "-"
+                        {!growthChange || row.mainLabel === "예수금" ? (
+                          ""
                         ) : (
                           <span className={`font-bold ${growthChange.needsMore ? "text-blue-500" : "text-red-500"}`}>
                             {growthChange.changeQuantity}
@@ -75,8 +75,8 @@ export default function Home() {
                         {!safeChange ? "-" : `${safeChange.targetQuantity}`}
                       </p>
                       <p className="text-center text-base text-gray-700">
-                        {!safeChange ? (
-                          "-"
+                        {!safeChange || row.mainLabel === "예수금" ? (
+                          ""
                         ) : (
                           <span className={`font-bold ${safeChange.needsMore ? "text-blue-500" : "text-red-500"}`}>
                             {safeChange.changeQuantity}
