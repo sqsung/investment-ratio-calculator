@@ -9,14 +9,14 @@ interface InvestmentInputProps {
   onChange: (event: React.ChangeEvent, key: keyof Investments, type: InvestmentValueType) => void;
 }
 
-export default function InvestmentInput({ row, value, total, onChange, autoTotal }: InvestmentInputProps) {
+export default function InvestmentInput({ row, value, onChange, autoTotal }: InvestmentInputProps) {
   const ratio = ((+value.has * +value.price) / autoTotal) * 100;
 
   return (
     <>
       <div className="w-full flex flex-col items-center gap-1 h-[40px] justify-center">
         <p className="font-bold">{row.mainLabel}</p>
-        <p className="text-sm text-gray-600">{row.subLabel}</p>
+        <p className="text-xs text-gray-600">{row.subLabel}</p>
       </div>
       <div className="w-full h-full flex justify-center">
         <input

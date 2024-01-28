@@ -12,7 +12,7 @@ export default function Home() {
   } = useHome();
 
   return (
-    <div className="h-screen min-w-[1600px] p-10 flex flex-col gap-5">
+    <div className="h-screen min-w-[1400px] p-10 flex flex-col gap-5">
       <div className="flex justify-between">
         <h1 className="font-bold text-primary text-2xl">투자 포트폴리오 계산기</h1>
         <Button text="계산하기" onClick={onCalculate} />
